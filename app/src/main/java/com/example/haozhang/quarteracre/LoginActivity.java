@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                     toast.setText("Please enter your information");
+                    toast.show();
                     return;
                 }
 
