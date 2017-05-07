@@ -16,4 +16,6 @@
 
     <dimen name="text_input_radius">2dp</dimen>
 
+    <dimen name="progress_bar_height">2dp</dimen>
+
 </resources>

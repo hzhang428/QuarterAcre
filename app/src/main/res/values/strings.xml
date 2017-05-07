@@ -10,6 +10,7 @@
     <string name="signUp_text">Create Your Account</string>
     <string name="signUp_button">Registor now</string>
     <string name="signUp_link"><u>Sign Up for QuarterAcre</u></string>
+    <string name="signOut_button">Sign Out</string>
 
     <string name="logo">Application Logo</string>
 
