@@ -1,14 +1,20 @@
 package com.example.haozhang.quarteracre;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
@@ -24,7 +30,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +44,52 @@ public class SignUpActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        final Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
+
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Registering ", Toast.LENGTH_SHORT);
-                toast.show();
                 String name = inputName.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 String confirmPassword = inputConfirmPassword.getText().toString().trim();
+
+                if (TextUtils.isEmpty(name)
+                        || TextUtils.isEmpty(email)
+                        || TextUtils.isEmpty(password)
+                        || TextUtils.isEmpty(confirmPassword)) {
+                    toast.setText("All fields are required");
+                    toast.show();
+                    return;
+                }
+
+                if (password.length() < 6) {
+                    toast.setText("Minimum number of character is 6");
+                    toast.show();
+                    return;
+                }
+
+                if (!TextUtils.equals(password, confirmPassword)) {
+                    toast.setText("Password entered are not the same");
+                    toast.show();
+                    return;
+                }
+
+                auth.createUserWithEmailAndPassword(email, password).
+                        addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                Toast.makeText(SignUpActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+//                                progressBar.setVisibility(View.GONE);
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                    finish();
+                                }
+                            }
+                        });
             }
         });
     }
