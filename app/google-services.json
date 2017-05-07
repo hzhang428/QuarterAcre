@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "632716439073",
+    "firebase_url": "https://logindemo-140ee.firebaseio.com",
+    "project_id": "logindemo-140ee",
+    "storage_bucket": "logindemo-140ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632716439073:android:fe29ea7b8a60ceec",
+        "android_client_info": {
+          "package_name": "com.example.haozhang.quarteracre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632716439073-ml1v7jmfg8q53dl3r0c7nif2o7885emh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDACI_HUgV4rfPvwFvo9ukoHxAjCPWX9iQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

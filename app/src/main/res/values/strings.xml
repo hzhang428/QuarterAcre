@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">QuarterAcre</string>
+
+    <string name="login_name">Full Name</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_confirm_password">Confirm Password</string>
+
+    <string name="login_button">Login</string>
+    <string name="signUp_text">Create Your Account</string>
+    <string name="signUp_button">Registor now</string>
+    <string name="signUp_link"><u>Sign Up for QuarterAcre</u></string>
+
+    <string name="logo">Application Logo</string>
+
+</resources>

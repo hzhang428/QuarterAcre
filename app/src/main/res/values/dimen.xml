@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space_xxsmall">4dp</dimen>
+    <dimen name="space_xsmall">8dp</dimen>
+    <dimen name="space_small">12dp</dimen>
+    <dimen name="space_medium">16dp</dimen>
+    <dimen name="space_large">24dp</dimen>
+    <dimen name="space_xlarge">48dp</dimen>
+    <dimen name="space_xxlarge">64dp</dimen>
+
+    <dimen name="button_text_size">18sp</dimen>
+    <dimen name="textBox_text_size">20sp</dimen>
+    <dimen name="textView_text_size">24sp</dimen>
+
+    <dimen name="icon_size">108dp</dimen>
+
+    <dimen name="text_input_radius">2dp</dimen>
+
+</resources>
