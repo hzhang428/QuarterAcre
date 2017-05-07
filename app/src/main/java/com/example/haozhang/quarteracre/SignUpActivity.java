@@ -41,10 +41,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void setUpUI() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Sign Up");
 
         auth = FirebaseAuth.getInstance();
 
-        final Toast toast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
+
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +54,8 @@ public class SignUpActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 String confirmPassword = inputConfirmPassword.getText().toString().trim();
+
+                Toast toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
 
                 if (TextUtils.isEmpty(name)
                         || TextUtils.isEmpty(email)
@@ -79,13 +82,14 @@ public class SignUpActivity extends AppCompatActivity {
                         addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(SignUpActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(SignUpActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
 //                                progressBar.setVisibility(View.GONE);
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
+                                    Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                    startActivity(intent);
                                     finish();
                                 }
                             }
