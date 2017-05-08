@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
 
+    @BindView(R.id.login_progress_bar) ProgressBar progressBar;
     @BindView(R.id.login_email) TextView inputEmail;
     @BindView(R.id.login_password) TextView inputPassword;
     @BindView(R.id.signUp_link) TextView signUpLink;
@@ -71,10 +73,13 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
+                progressBar.setVisibility(View.VISIBLE);
+
                 auth.signInWithEmailAndPassword(email, password).
                         addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressBar.setVisibility(View.GONE);
                         if (!task.isSuccessful()) {
                             inputPassword.setError("Password Incorrect");
                         } else {
