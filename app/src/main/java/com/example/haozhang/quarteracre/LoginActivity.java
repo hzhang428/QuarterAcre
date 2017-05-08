@@ -63,12 +63,12 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
+                final Toast toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
                 String email = inputEmail.getText().toString().trim();
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-                    toast.setText("Please enter your information");
+                    toast.setText(R.string.signIn_hint);
                     toast.show();
                     return;
                 }
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressBar.setVisibility(View.GONE);
                         if (!task.isSuccessful()) {
-                            inputPassword.setError("Password Incorrect");
+                            toast.setText(R.string.signIn_auth_failed);
                         } else {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);

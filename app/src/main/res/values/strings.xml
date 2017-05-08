@@ -19,4 +19,14 @@
     <string name="drawer_menu_logout">Log Out</string>
     <string name="drawer_menu_about_us">About Us</string>
 
+    <string name="title_signUp">Sign Up</string>
+
+    <string name="password_not_qualify">Minimum number of character is 6</string>
+    <string name="password_not_match">Password entered are not the same</string>
+
+    <string name="signUp_hint">All fields are required</string>
+    <string name="signUp_auth_failed">Email already registered</string>
+
+    <string name="signIn_hint">Please enter your information</string>
+    <string name="signIn_auth_failed">Password or email not recognized</string>
 </resources>
