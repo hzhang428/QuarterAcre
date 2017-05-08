@@ -32,7 +32,6 @@ public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.signUp_confirm_password) TextView inputConfirmPassword;
     @BindView(R.id.signUp_button) Button signUpBtn;
 
-
     private FirebaseAuth auth;
 
     @Override
