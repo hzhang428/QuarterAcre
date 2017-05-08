@@ -1,5 +1,6 @@
 package com.example.haozhang.quarteracre;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -47,38 +49,36 @@ public class SignUpActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        setTitle("Sign Up");
+        setTitle(R.string.title_signUp);
 
         auth = FirebaseAuth.getInstance();
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Bring the keyboard down
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(signUpBtn.getWindowToken(), 0);
+
                 String name = inputName.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 String confirmPassword = inputConfirmPassword.getText().toString().trim();
 
-                Toast toast = Toast.makeText(getApplicationContext(), null, Toast.LENGTH_SHORT);
-
                 if (TextUtils.isEmpty(name)
                         || TextUtils.isEmpty(email)
                         || TextUtils.isEmpty(password)
                         || TextUtils.isEmpty(confirmPassword)) {
-                    toast.setText("All fields are required");
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), R.string.signIn_hint, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (password.length() < 6) {
-                    toast.setText("Minimum number of character is 6");
-                    toast.show();
+                    inputPassword.setError(getString(R.string.password_not_qualify));
                     return;
                 }
-
                 if (!TextUtils.equals(password, confirmPassword)) {
-                    toast.setText("Password entered are not the same");
-                    toast.show();
+                    inputConfirmPassword.setError(getString(R.string.password_not_match));
                     return;
                 }
 
@@ -90,8 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), R.string.signUp_auth_failed, Toast.LENGTH_SHORT).show();
                                 } else {
                                     Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                     startActivity(intent);
