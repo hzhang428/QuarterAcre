@@ -5,10 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,11 +24,14 @@ import butterknife.ButterKnife;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.signUp_progress_bar) ProgressBar progressBar;
     @BindView(R.id.signUp_name) TextView inputName;
     @BindView(R.id.signUp_email) TextView inputEmail;
     @BindView(R.id.signUp_password) TextView inputPassword;
     @BindView(R.id.signUp_confirm_password) TextView inputConfirmPassword;
     @BindView(R.id.signUp_button) Button signUpBtn;
+
 
     private FirebaseAuth auth;
 
@@ -40,12 +45,12 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void setUpUI() {
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         setTitle("Sign Up");
 
         auth = FirebaseAuth.getInstance();
-
-
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,12 +83,13 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
+                progressBar.setVisibility(View.VISIBLE);
+
                 auth.createUserWithEmailAndPassword(email, password).
                         addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-//                                Toast.makeText(SignUpActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-//                                progressBar.setVisibility(View.GONE);
+                                progressBar.setVisibility(View.GONE);
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
